@@ -38,20 +38,25 @@ Template.login.events({
 });
 
 Template.lend.events({
-    'submit .new-item': function(event){
+    'submit form': function(event, template){
         event.preventDefault();
+      console.log("TEST");
+        //var name = event.target.xyz.value;
+        console.log(name);
 
-        //var name = event.target.text.value;
         var name = $('#name').val();
-        var daysAvailable = $('#daysAvailable').val();
+        //var daysAvailable = $('#daysAvailable').val();
 
-        availableItems.insert({
-          name: name
+         availableItems.insert({
+          name: name,
+          loanTime: template.find("#number").value
           //daysAvailable: daysAvailable
         });
 
             console.log(name);
-            console.log(daysAvailable);
+            console.log(template.find("#number").value);
+            return false;
+
     }
 });
 

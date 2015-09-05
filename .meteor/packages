@@ -7,9 +7,9 @@
 meteor-platform
 autopublish
 insecure
-materialize:materialize
 iron:router
 zodiase:mdl
 accounts-ui
 accounts-password
 aldeed:autoform
+materialize:materialize

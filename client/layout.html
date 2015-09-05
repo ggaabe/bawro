@@ -89,7 +89,7 @@
       <h2 class="mdl-card__title-text">{{name}}</h2>
     </div>
     <div class="mdl-card__supporting-text">
-      {{loanTime}}
+      Available for {{loanTime}} days loan.
     </div>
     <div class="mdl-card__actions mdl-card--border">
       <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
@@ -120,15 +120,18 @@ color: #fff;
   <h2></h2>
 </div>
 <div class="inner">
-<form class="new-item">
-  <h1 class="mdl-layout-title">Lend an item!</h1>
+<form id="test" class="new-item">
+ <h1 class="mdl-layout-title">Lend an item!</h1>
   <div class="mdl-textfield mdl-js-textfield">
-    <h5>What is the name of your item?</h5>
-    <input class="mdl-textfield__input" placeholder="Name of item" type="text" id="name" />
+    <h5>What is the name of ghjfghdhjg?</h5> -->
+    <input class="mdl-textfield__input" placeholder="Name of item" type="text" name="xyz" id="name" />
   <label class="mdl-textfield__label" for="sample1"></label>
 </div>
   <div class="mdl-textfield mdl-js-textfield">
-    <h5>How many days can your item be loaned for?</h5>
+    <h5>How many days can your item be loaned for?</h5> -->
+    <input class="mdl-textfield__input" placeholder="Name of item" type="text" name="abc" id="number" />
+    <input type="submit" style="display: none;"/>
+
     <span class="mdl-textfield__error">Input is not a number!</span>
   </div>
 </form>
