@@ -99,6 +99,54 @@
   </div>
 </template>
 
+<template name="lend">
+
+<style>
+.demo-card-wide.mdl-card {
+width: 512px;
+}
+.demo-card-wide > .mdl-card__title {
+color: #fff;
+height: 176px;
+background: url('../assets/demos/welcome_card.jpg') center / cover;
+}
+.demo-card-wide > .mdl-card__menu {
+color: #fff;
+}
+</style>
+
+<div class="demo-card-wide mdl-card mdl-shadow--2dp" id="inner">
+<div class="mdl-card__title">
+  <h2></h2>
+</div>
+<div class="inner">
+<form class="new-item">
+  <h1 class="mdl-layout-title">Lend an item!</h1>
+  <div class="mdl-textfield mdl-js-textfield">
+    <h5>What is the name of your item?</h5>
+    <input class="mdl-textfield__input" placeholder="Name of item" type="text" id="name" />
+  <label class="mdl-textfield__label" for="sample1"></label>
+</div>
+  <div class="mdl-textfield mdl-js-textfield">
+    <h5>How many days can your item be loaned for?</h5>
+    <span class="mdl-textfield__error">Input is not a number!</span>
+  </div>
+</form>
+
+
+</div>
+<div class="mdl-card__actions mdl-card--border">
+
+</div>
+<div class="mdl-card__menu">
+  <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+    <i class="material-icons">share</i>
+  </button>
+</div>
+</div>
+
+</template>
+
 <template name="register">
     <h2>Register</h2>
     <form class="register">

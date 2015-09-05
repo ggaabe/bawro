@@ -37,7 +37,36 @@ Template.login.events({
     }
 });
 
+Template.lend.events({
+    'submit .new-item': function(event){
+        event.preventDefault();
+
+        //var name = event.target.text.value;
+        var name = $('#name').val();
+        var daysAvailable = $('#daysAvailable').val();
+
+        availableItems.insert({
+          name: name
+          //daysAvailable: daysAvailable
+        });
+
+            console.log(name);
+            console.log(daysAvailable);
+    }
+});
+
 Template.layout.events({
+  'submit .new-task': function(event){
+    event.preventDefault();
+    var email = $('[name=email]').val();
+    var password = $('[name=password]').val();
+
+
+
+
+  }
+})
+/*Template.layout.events({
      'click .logout': function(event){
        event.preventDefault();
        console.log("Running event");
@@ -46,6 +75,7 @@ Template.layout.events({
 });
       }
   })
+*/
 
 }
 
