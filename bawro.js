@@ -26,6 +26,18 @@ image: function () {
 }
 });
 
+Template.item.events({
+  "click #borrow": function(event, template){
+    var itemToUpdate = template.data._id;
+    availableItems.update({_id:itemToUpdate}, {$set:{
+      available: false;
+      borrower: Meteor.userId()
+    }});
+
+
+  }
+});
+
 Template.register.events({
     'submit form': function(event){
         event.preventDefault();
