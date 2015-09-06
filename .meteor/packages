@@ -8,8 +8,12 @@ meteor-platform
 autopublish
 insecure
 iron:router
-zodiase:mdl
 accounts-ui
 accounts-password
 aldeed:autoform
 materialize:materialize
+zodiase:mdl
+lepozepo:cloudinary
+cfs:standard-packages
+cfs:filesystem
+cfs:ejson-file

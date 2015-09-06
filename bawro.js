@@ -47,9 +47,25 @@ Template.lend.events({
         var name = $('#name').val();
         //var daysAvailable = $('#daysAvailable').val();
 
+        var file = template.find('input type=["file"]').files[0];
+        var reader = new FileReader();
+        reader.onload = function(e) {
+      // Add it to your model
+        model.update(id, { $set: { src: e.target.result }});
+
+      // Update an image on the page with the data
+      $(template.find('img')).attr('src', e.target.result);
+    }
+    reader.readAsDataURL(file);
+
          availableItems.insert({
           name: name,
-          loanTime: template.find("#number").value
+          loanTime: template.find("#number").value,
+          quantity: 1,
+          available: true,
+          owner: Meteor.user().username,
+          userID: Meteor.userId(),
+          itemID: availableItems.find().count()
           //daysAvailable: daysAvailable
         });
 
@@ -84,4 +100,7 @@ Template.layout.events({
 
 }
 
+Images = new FS.Collection("images", {
+  stores: [new FS.Store.FileSystem("images", {path: "~/uploads"})]
+});
 availableItems = new Mongo.Collection("items");
