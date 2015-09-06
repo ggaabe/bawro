@@ -19,6 +19,18 @@ Template.borrow.helpers({
     }
 });
 
+Template.borrowed.helpers({
+  availableToBorrow: function (){
+    return availableItems.find({available: false});
+  }
+});
+
+Template.loaned.helpers({
+  availableToBorrow: function (){
+    return availableItems.find({available: true});
+  }
+});
+
 Template.item.helpers({
 image: function () {
   console.log(this);
@@ -30,13 +42,60 @@ Template.item.events({
   "click #borrow": function(event, template){
     var itemToUpdate = template.data._id;
     availableItems.update({_id:itemToUpdate}, {$set:{
-      available: false;
+      available: false,
       borrower: Meteor.userId()
     }});
+
+    Collection.update({_id:idSelector}, {$set:{
+
+    }});
+    Meteor.users.update(Meteor.userId(), {
+      $addToSet: {borrowedItems: itemToUpdate}    //later on initialize a borrowed array upon account registration.
+    });
 
 
   }
 });
+
+Template.item.events({
+  "click #return": function(event, template){
+    var itemToUpdate = template.data._id;
+    availableItems.update({_id:itemToUpdate}, {$set:{
+      available: true,
+      borrower: null
+    }});
+
+    Collection.update({_id:idSelector}, {$set:{
+
+    }});
+    Meteor.users.update(Meteor.userId(), {
+      $addToSet: {borrowedItems: null}    //later on initialize a borrowed array upon account registration.
+    });
+
+
+  }
+});
+
+/*Template.borrowed.helpers({
+borrowedItems: function(){
+  var thisUser = Meteor.users.findOne(Meteor.userId());
+  var borrowedItemIDs = thisUser.borrowedItems;
+
+  //Only will work with one item for now. Forget the array/for each loop.
+  //var borrowedItemArray = new Array();
+
+  //borrowedItemIDs.forEach()
+  /*for each (itemID in borrowedItemIDs){
+      var borrowedItem = Collection.findOne({_id:itemID});
+      borrowedItemArray.push(borrowedItem);
+  }*/
+
+/*
+  return availableItems.findOne({_id:borrowedItemIDs});
+
+}});*/
+
+
 
 Template.register.events({
     'submit form': function(event){

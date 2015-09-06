@@ -5,7 +5,7 @@
     <header class="mdl-layout__header">
       <div class="mdl-layout__header-row">
         <!-- Title -->
-        <span class="mdl-layout-title">Bawro</span>
+        <a href="http://localhost:3000/"><span class="mdl-layout-title">Bawro</span></a>
         <!-- Add spacer, to align navigation to the right -->
         <div class="mdl-layout-spacer"></div>
         <!-- Navigation. We hide it in small screens. -->
@@ -18,11 +18,12 @@
     <div class="mdl-layout__drawer mdl-layout">
 
 
-      <span class="mdl-layout-title">Bawro</span>
+      <a href="http://localhost:3000/"><span class="mdl-layout-title">Bawro</span></a>
       <nav class="mdl-navigation">
+        <a class="mdl-navigation__link" href="http://localhost:3000/loan"></a>
         <a class="mdl-navigation__link" href="http://localhost:3000/borrow">Borrow</a>
         <a class="mdl-navigation__link" href="http://localhost:3000/lend">Lend</a>
-        <a class="mdl-navigation__link" href="http://localhost:3000/loan">Loan</a>
+
 
       </nav>
 
@@ -89,16 +90,27 @@
       <h2 class="mdl-card__title-text">{{name}}</h2>
     </div>
 
-      <a href="/item/{{_id}}" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Available for {{loanTime}} days loan.</a>
+      <a href="/item/{{_id}}" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+        {{#if available}} Available for {{loanTime}} days loan.
+        {{else}}
+        <strong id="due">Due in {{loanTime}} days.</strong>
+        {{/if}}
+      </a>
 
     <div class="mdl-card__actions mdl-card--border">
       <a class="mdl-card__supporting-text" href="">
        From: {{owner}}
       </a>
       <!-- Accent-colored raised button -->
-    <a href="/borrow"><button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" id="borrow">
+    {{#if available}}
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" id="borrow">
       Borrow
-    </button></a>
+    </button>
+    {{else}}
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" id="return">
+    Return
+  </button>
+    {{/if}}
 
 
 
@@ -173,7 +185,8 @@ color: #fff;
 </template>
 
 <template name="dashboard">
-    <h1>Borrowed and loaned items go here</h1>
+    <h1>Borrowed items:</h1>
+    {{>borrowed}}
 </template>
 
 <template name="register">
@@ -183,6 +196,18 @@ color: #fff;
         <p>Password: <input type="password" name="password"></p>
         <p><input type="submit" value="Register"></p>
     </form>
+</template>
+
+<template name="borrowed">
+  <div class="mdl-grid">
+    {{#each availableToBorrow}}
+    <div class="mdl-cell mdl-cell--4-col">{{> item}}</div>
+  {{/each}}
+</div>
+</template>
+
+<template name="loaned">
+
 </template>
 
 <template name="login">
