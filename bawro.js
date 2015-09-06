@@ -1,3 +1,7 @@
+Images = new FS.Collection("images", {
+  stores: [new FS.Store.FileSystem("images", {path: "~/uploads"})]
+});
+
 if(Meteor.isClient){
   Accounts.ui.config({
     passwordSignupFields: "USERNAME_ONLY"
@@ -13,6 +17,13 @@ Template.borrow.helpers({
     availableToBorrow: function (){
       return availableItems.find({});
     }
+});
+
+Template.item.helpers({
+image: function () {
+  console.log(this);
+  return Images.findOne(this.photo._id); // Where Images is an FS.Collection instance
+}
 });
 
 Template.register.events({
@@ -46,21 +57,14 @@ Template.lend.events({
 
         var name = $('#name').val();
         //var daysAvailable = $('#daysAvailable').val();
-
-        var file = template.find('input type=["file"]').files[0];
-        var reader = new FileReader();
-        reader.onload = function(e) {
-      // Add it to your model
-        model.update(id, { $set: { src: e.target.result }});
-
-      // Update an image on the page with the data
-      $(template.find('img')).attr('src', e.target.result);
-    }
-    reader.readAsDataURL(file);
+        var file = $('#file').get(0).files[0];
+        var imageObject = Images.insert(file);
 
          availableItems.insert({
           name: name,
           loanTime: template.find("#number").value,
+          borrower: null,
+          photo: imageObject,
           quantity: 1,
           available: true,
           owner: Meteor.user().username,
@@ -75,6 +79,12 @@ Template.lend.events({
 
     }
 });
+
+/*Template.lend.events({
+'change .imageInput': function(event, template) {
+
+}
+});*/
 
 Template.layout.events({
   'submit .new-task': function(event){
@@ -100,7 +110,15 @@ Template.layout.events({
 
 }
 
-Images = new FS.Collection("images", {
-  stores: [new FS.Store.FileSystem("images", {path: "~/uploads"})]
-});
+
+if(Meteor.isServer){
+    Images.allow({
+    'insert': function () {
+      // add custom authentication code here
+      return true;
+    }
+  });
+}
+
+
 availableItems = new Mongo.Collection("items");

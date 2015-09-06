@@ -80,7 +80,7 @@
   .demo-card-square > .mdl-card__title {
     color: #fff;
     background:
-      url('{{image}}') bottom right 15% no-repeat #46B6AC;
+      url('{{image.url}}') bottom right 15% no-repeat #46B6AC;
   }
   </style>
 
@@ -139,9 +139,12 @@ color: #fff;
   <div class="mdl-textfield mdl-js-textfield">
     <h5>How many days can your item be loaned for?</h5>
     <input class="mdl-textfield__input" placeholder="Days available" pattern="-?[0-9]*(\.[0-9]+)?" type="text" name="abc" id="number" />
-    <input type="submit" style="display: none;"/>
 
     <span class="mdl-textfield__error">Input is not a number!</span>
+  </div>
+  <div class="mdl-card-wide">
+    <input class="imageInput" id="file" type="file"/>
+    <input type="submit" style="display: none;"/>
   </div>
 </form>
 
@@ -167,6 +170,10 @@ color: #fff;
     {{else}}
       {{>signup}}
     {{/if}}
+</template>
+
+<template name="dashboard">
+    <h1>Borrowed and loaned items go here</h1>
 </template>
 
 <template name="register">
