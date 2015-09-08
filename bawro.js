@@ -32,9 +32,9 @@ Template.loaned.helpers({
 });
 
 Template.item.helpers({
-image: function () {
+image: function (template) {
   console.log(this);
-  return Images.findOne(this.photo._id); // Where Images is an FS.Collection instance
+  return Images.findOne({ _id: this.photo._id }); // Where Images is an FS.Collection instance
 }
 });
 
